@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>刀具声音数据收集 主页面</title>
+        <style type="text/css">
+            body{
+                background-color:#696969;
+            }
+            .upper, .lower{
+                width: 1024px;
+                margin-right:auto;
+                margin-left:auto;
+            }
+            .cuttool{
+                background-color:#cecece;
+                width:400px;
+                height:350px;
+                display: inline-block;
+                vertical-align:top;
+            }      
+            .record{
+                background-color:black;
+                width:600px;
+                height:350px;
+                display: inline-block;
+                vertical-align:top;
+            }
+            .hlabel{
+                background-color:black;
+                width:700px;
+                height:350px;
+                display: inline-block;
+                vertical-align:top;
+            }
+            .plabel{
+                background-color:#cecece;
+                width:300px;
+                height:350px;
+                display: inline-block;
+                vertical-align:top;
+            }
+            .dmlabel{
+                color:whitesmoke;
+                margin-left:20px;
+                margin-right:10px;
+                margin-top:10px;
+                display:inline-block;
+                font-size:24px
+            }            
+        </style>
+        <script type="text/javascript"></script>
+    </head>
+    <body>
+        <div class=upper>
+            <div class=cuttool>
+                <h2 style="color:whitesmoke;font-size;margin-left:20px;font-size:30px">刀具相关参数</h2>
+                <label class=dmlabel>机台编号</label>
+                <select class=dmselect name="n4cnc" >
+                        <option value="" selected disabled hidden>机台编号</option>
+                      </select><br>
+                <label class=dmlabel>刀具宽度</label>
+                <select class=dmselect name="n4ct" >
+                        <option value="" selected disabled hidden>刀具宽度</option>
+                      </select>
+            </div>
+            <div class=record>
+
+            </div>
+        </div>
+        <div class=lower>
+            <div class=hlabel>
+                <h3 style="color:whitesmoke;font-size">健康數據</h3>
+            </div>
+            <div class=plabel>
+        
+            </div>
+        </div>
+    </body>
+</html>

@@ -3,78 +3,157 @@
     <head>
         <meta charset="utf-8"/>
         <title>刀具声音数据收集 主页面</title>
-        <style type="text/css">
-            body{
-                background-color:#696969;
-            }
-            .upper, .lower{
-                width: 1024px;
-                margin-right:auto;
-                margin-left:auto;
-            }
-            .cuttool{
-                background-color:#cecece;
-                width:400px;
-                height:350px;
-                display: inline-block;
-                vertical-align:top;
-            }      
-            .record{
-                background-color:black;
-                width:600px;
-                height:350px;
-                display: inline-block;
-                vertical-align:top;
-            }
-            .hlabel{
-                background-color:black;
-                width:700px;
-                height:350px;
-                display: inline-block;
-                vertical-align:top;
-            }
-            .plabel{
-                background-color:#cecece;
-                width:300px;
-                height:350px;
-                display: inline-block;
-                vertical-align:top;
-            }
-            .dmlabel{
-                color:whitesmoke;
-                margin-left:20px;
-                margin-right:10px;
-                margin-top:10px;
-                display:inline-block;
-                font-size:24px
-            }            
-        </style>
-        <script type="text/javascript"></script>
-    </head>
-    <body>
+        <link rel="shortcut icon" href="static/icon.png" type="image/png"/>
+        <link rel="stylesheet" href="static/mainpage.css">
+        <link rel="stylesheet" href="static/bootstrap.min.css">
+        <script src="javascript/head_disable.js"></script>
+        <script src="javascript/head_jquery.min.js"></script> 
+        <script src="javascript/head_bootstrap.min.js"></script>
+    </head>  
+    <body onload="inti()">
+        <div id="loading" class="loading">下载音档中</div>
+        <form id="cncform" name="cncform" onsubmit="return false;">
         <div class=upper>
             <div class=cuttool>
-                <h2 style="color:whitesmoke;font-size;margin-left:20px;font-size:30px">刀具相关参数</h2>
+                <div class="cttitle">
+                    <h2 class="cth2">刀具参数设定</h2>
+                </div>
                 <label class=dmlabel>机台编号</label>
-                <select class=dmselect name="n4cnc" >
-                        <option value="" selected disabled hidden>机台编号</option>
-                      </select><br>
-                <label class=dmlabel>刀具宽度</label>
-                <select class=dmselect name="n4ct" >
-                        <option value="" selected disabled hidden>刀具宽度</option>
-                      </select>
-            </div>
-            <div class=record>
+                <select class=dmselect name="n4cnc" id="n4cnc"></select>    
+                <script src="javascript/cuttool_n4cnc.js"></script>
+                <br>
+                
+                <label class=dmlabel>刀具直径</label>
+                <select class=dmselect name="n4ct" id="n4ct"></select>
+                <script src="javascript/cuttool_n4ct.js"></script>
+                <br>
+                
+                <label class=dmlabel>伸出长比</label>
+                <select class=dmselect name="n4extendR" id="n4extendR"></select>
+                <script src="javascript/cuttool_n4extendR.js"></script>
+                <br>
+                
+                <label class=dmlabel>加工材质</label>
+                <select class=dmselect name="n4material" id="n4material"></select>
+                <script src="javascript/cuttool_n4material.js"></script>
 
+                <!--Trigger the modal with a button-->
+                <button type="button" class="btn btn-default btn-lg" id="parabtn">其他参数输入</button>
+                <!--Modal other parameters for cuttools-->
+                <div class="modal fade" id="paramodal" role="dialog">
+                    <div class="modal-dialog">  
+                        <!--Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">刀具其他参数</h4>
+                                 </div>
+                                 <div class="modal-body">
+                                     <p>后续会有其他参数可以设定</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">储存</button>
+                                </div>
+                            </div>
+      
+                    </div>
+                </div>  
+                <script src="javascript/cuttool_modalparabtn.js"></script>   
+                <script src="javascript/cuttool_dropdownmenu.js"></script> 
             </div>
-        </div>
+
+            <div class=record>
+                <div class=displaycondition>
+                    <p class="displaytxt" style="padding:10px">刀具状态为：<span id="cuttoolcond"></span></p>
+                    <p class="displaytxt" style="padding:6px">工件加工使用：<span id="processingcond"></span></p>
+                </div>
+                <div class=recordbtndiv>
+                    <button type="submit" id="recordButton" class="rbtnstyle" value="startrecord" disabled>开始<br>录音</button>
+                    <button type="submit" id="stopButton" class="rbtnstyle" value="stoprecord">结束<br>录音</button>
+                    <div id="stopwatch"></div>
+                    <input id="swhidden" type="hidden" name="stopwatch" value="">
+                </div>
+                <div id="recordingsList"></div>
+                <input id="rlhidden" type="hidden" name="filename" value="">
+            </div>  
+            <script src="javascript/record_recorder.js"></script>
+            <script src="javascript/record_recordapp.js"></script>              
+        </div>       
         <div class=lower>
             <div class=hlabel>
-                <h3 style="color:whitesmoke;font-size">健康數據</h3>
+                <div class=htitle>
+                    <h2 class=hh2>点击刀具状态</h2>
+                </div>
+                <button type="submit" class="hbtn" id="normal" name="hbtn" value="normal">正常</button>
+                <button type="submit" class="hbtn" id="sparkle" name="hbtn" value="sparkle">刀具<br>耗损</button>
+                <button class="hbtn" id="failure">刀具<br>报废</button>
+                
+                <!--Modal warning box for confirmation of failure condition-->
+                <div class="modal fade" id="s2fmodal" role="dialog">
+                        <div class="modal-dialog">       
+                            <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header" sytle="height:35px">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">切换状态提示框</h4>
+                                     </div>
+                                     <div class="modal-body">
+                                         <h2 style="text-align: center">确定按下刀具报废?</h2>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                        <button type="submit" class="btn btn-default" id="failureyes" data-dismiss="modal" name="hbtn" value="failure">确定</button>
+                                    </div>
+                                </div>
+          
+                        </div>
+                </div>  
+                <script src="javascript/hlabel_modalconfirmfailure.js"></script>
+                
+                <div id="misleaddiv">
+                    <button class="misbtn" id="misleadbtn">误判</button>
+                </div>
+                <!--Modal failure back to spa or nor-->
+                <div class="modal fade" id="misleadmodal" role="dialog">
+                        <div class="modal-dialog">       
+                            <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header" sytle="height:35px">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">刀具状态误判</h4>
+                                     </div>
+                                     <div class="modal-body">
+                                         <h2 style="text-align:center;margin-bottom:20px;font-size:26px">刀具经判定损毁后应该不会变会正常或<br>损毁状态，请选择下列原因加以说明？</h2>
+                                            <input style="margin-left:100px" type="radio" id="mischoice1" name="mislead" value="byaccident"/>
+                                            <label style="font-size:20px;font-weight:100;"for="mischoice1">不小心按到损毁按钮</label>
+                                            <br>
+                                            <input style="margin-left:100px" type="radio" id="mischoice2" name="mislead" value="mislead"/>
+                                            <label style="font-size:20px;font-weight:100;" for="mischoice2">先前为误判，再次判断后还可以继续使用</label> 
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                        <button type="submit" class="btn btn-default" id="misleadyes" name="misbtn" data-dismiss="modal">确定</button>    
+                                    </div>
+                                </div>
+                        </div>
+                </div>  
+                <script src="javascript/hlabel_modalmislead.js"></script>
             </div>
-            <div class=plabel>
+            <script src="javascript/hlabel_cuttoollabel.js"></script> <!--css part and html part-->             
         
+            <div class=plabel>
+                <div class=ptitle>
+                    <h2 class=ph2>工件加工</h2>
+                </div>
+                <button type="submit" class="pbtn" id="dry" name="pbtn" value="dry">干式</button>
+                <button type="submit" class="pbtn" id="air" name="pbtn" value="air">吹气</button>
+                <button type="submit" class="pbtn" id="oil" name="pbtn" value="oil">油性<br>切削液</button>
+                <button type="submit" class="pbtn" id="liq" name="pbtn" value="liq">水性<br>切削液</button>
             </div>
+            <script src="javascript/plabel_processlabel.js"></script> <!--css part and html part--> 
         </div>
+        </form>
+    <script src="javascript/end_callapi.js"></script>           
     </body>
 </html>
